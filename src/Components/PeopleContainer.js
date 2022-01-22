@@ -18,6 +18,10 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (max-width:576px) {
+        /* width: 100%; */
+        display: none;
+    }
 `;
 const SearchContainer = styled.div`
     margin: 20px 10px;
@@ -47,7 +51,7 @@ const Peoples = styled(List)`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100% !important;
+    width: 100% ;
     margin: 2px 0px !important;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -58,6 +62,11 @@ const Peoples = styled(List)`
     ::-webkit-scrollbar{
       display: none;
     }
+    @media (max-width:576px) {
+        width: 100%;
+        
+    }
+
 `;
 
 const PeopleContainer = () => {
@@ -70,11 +79,7 @@ const PeopleContainer = () => {
                 </Button>
             </SearchContainer>
             <Peoples
-                sx={{
-                    width: "100%",
-                    maxWidth: 360,
-                    bgcolor: "background.paper",
-                }}>
+                >
                 {profiles && profiles.length
                     ? profiles.map((profile) => (
                           <People data={profile} key={profile.userId} />

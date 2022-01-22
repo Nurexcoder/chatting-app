@@ -7,6 +7,9 @@ import ChatPart from "./ChatPart";
 const Container = styled.div`
     width: 95%;
     height: 100vh;
+    @media (max-width:576px) {
+        width: 100%;
+    }
     /* background-color: yellow; */
 `;
 

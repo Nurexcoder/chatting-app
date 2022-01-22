@@ -18,6 +18,10 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width:576px) {
+        /* display: none; */
+        width: 100%;
+    }
 `;
 const CardContainer = styled.div`
     width: 100%;
@@ -128,13 +132,49 @@ const Button = styled.button`
 `;
 
 const MessageContainer = () => {
+    const [user, setUser] = useState([]);
     const [messages, setMessages] = useState([]);
-    useEffect(() => {
+    const [currentUser, setCurrentUser] = useState(0);
+    const [textMessage, setTextMessage] = useState("");
+    const [fileMessage, setFileMessage] = useState("");
 
-    
-      
-    }, [messages]);
-    
+    useEffect(() => {
+        setUser(myMessages[currentUser]);
+    }, [currentUser]);
+
+    useEffect(() => {
+        setMessages(user.messages);
+    }, [user]);
+    const saveMessage = () => {};
+    const textMessageHandle = (e) => {
+        setTextMessage(e.target.value);
+    };
+    const fileMessageHandle = (e) => {
+        setFileMessage(e.target.files[0]);
+        console.log(e.target.files[0]);
+
+    };
+    const handleSend = () => {
+        console.log(fileMessage);
+        var file = '';
+        const reader = new FileReader();
+        if(fileMessage){
+
+           file = URL.createObjectURL(fileMessage)
+        }
+       
+        // console.log(url);
+        const newMessage = {
+            id: messages.length + 1,
+            from: "me",
+            file: file,
+            message: textMessage,
+        };
+        setMessages([...messages, newMessage]);
+        setTextMessage("");
+        setFileMessage("")
+        console.log(newMessage);
+    };
     return (
         <Container>
             <CardContainer>
@@ -145,7 +185,7 @@ const MessageContainer = () => {
                                 <Image src='ironman.jpg' />
                             </Avatar>
                         </Badge>
-                        <Username>Hibjul Ahmed</Username>
+                        <Username>{user.username}</Username>
                     </UserContainer>
                     <SettingsContainer>
                         <MoreVertIcon />
@@ -153,22 +193,33 @@ const MessageContainer = () => {
                     </SettingsContainer>
                 </DetailsContainer>
                 <Messages>
-                    {myMessages && myMessages.length !== 0
-                        ? myMessages[0].messages.map((messages) => (
-                              <Message messages={messages} />
+                    {messages && messages.length !== 0
+                        ? messages.map((message) => (
+                              <Message message={message} key={message.id} />
                           ))
-                        : "Loading"}
+                        : "Start a converstation"}
                 </Messages>
                 <SendMessageContainer>
                     <WriteMessageContainer>
-                        <Input type='text' />
+                        <Input
+                            type='text'
+                            onChange={textMessageHandle}
+                            name='message'
+                            value={textMessage}
+                        />
                         {/* <File type='file' /> */}
                         <Label htmlFor='file-input'>
                             <FileIcon />
                         </Label>
-                        <File id='file-input' type='file' />
+                        <File
+                            id='file-input'
+                            type='file'
+                            name='file'
+                            onChange={fileMessageHandle}
+                            files={fileMessage}
+                        />
                     </WriteMessageContainer>
-                    <Button>
+                    <Button onClick={handleSend}>
                         <Send />
                     </Button>
                 </SendMessageContainer>

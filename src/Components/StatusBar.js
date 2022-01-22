@@ -34,6 +34,11 @@ const RightContainer = styled.div`
     align-items: center;
     width: 18%;
     margin: 0 20px;
+    @media (max-width:576px) {
+        margin: none;
+        width: 40%;
+
+    }
 `;
 const H2 = styled.h3``;
 const Username = styled.span`
@@ -48,6 +53,7 @@ const Span = styled.span`
     flex-direction: row;
     /* justify-content: space-between; */
     align-items: center;
+    
 `;
 
 const Image = styled.img`

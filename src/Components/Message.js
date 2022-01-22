@@ -12,7 +12,16 @@ const MessageContainer = styled.li`
     /* align-items: flex-start !important; */
     /* justify-content: flex-start; */
 `;
+const TextContainer = styled.div`
+    display: flex;
+    flex-direction: column;
 
+    align-items: ${(props) =>
+        props.from === "he" ? "flex-start" : "flex-end"};
+    /* justify-content: flex-start; */
+    width: 50%;
+    margin: 5px 10px;
+`;
 const Text = styled.span`
     /* background-color: blue; */
     /* border: 1px solid blue; */
@@ -24,16 +33,31 @@ const Text = styled.span`
     border-top-left-radius: ${(props) => (props.from === "he" ? "0" : "15px")};
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    margin: 5px 10px;
     padding: 10px 30px;
     font-size: 0.8rem;
 `;
-const Message = ({messages}) => {
-    return (
-        <MessageContainer alignItems='flex-start' from={messages.from}>
-            <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+const Image = styled.img`
+    width: 400px;
+    height: auto;
+`;
+const Message = ({ message }) => {
+    console.log(message.file);
+    // var URL = window.URL || window.webkitURL;
 
-            <Text from={messages.from}>{messages.message}</Text>
+    // Create and revoke ObjectURL
+    
+    return (
+        <MessageContainer alignItems='flex-start' from={message.from}>
+            <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+            <TextContainer from={message.from}>
+                {message.message ? (
+                    <Text from={message.from}>{message.message}</Text>
+                ) : (
+                    ""
+                )}
+
+                {message.file ? <Image src={message.file} /> : ""}
+            </TextContainer>
         </MessageContainer>
     );
 };

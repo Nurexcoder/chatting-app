@@ -1,7 +1,7 @@
 const profiles=[
     {
         userId:1,
-        username:"Hibjul Ahmed",
+        username:"Kunal Sinha",
         avatar:"ironman.jpg",
         lastMessage:"Hii, How Are you",
         isOnline:true

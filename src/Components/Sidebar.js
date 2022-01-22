@@ -15,6 +15,9 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    @media (max-width:576px) {
+        display: none;
+    }
     
 `;
 const ItemsContainer = styled.div`
